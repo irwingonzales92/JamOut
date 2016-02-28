@@ -1468,48 +1468,126 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHc-Fb-zaR">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="IBF-bE-QeR"/>
+                                    <constraint firstAttribute="width" constant="254" id="np0-pe-IFL"/>
+                                </constraints>
                                 <state key="normal" title="Edit Profile"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="73" y="128" width="254" height="72"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="IBF-bE-QeR"/>
+                                        <exclude reference="np0-pe-IFL"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="IBF-bE-QeR"/>
+                                        <include reference="np0-pe-IFL"/>
+                                    </mask>
                                 </variation>
                                 <connections>
                                     <action selector="editProfileOnButtonPressed:" destination="ivF-Ie-D2o" eventType="touchUpInside" id="NxI-v0-1dm"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qdq-Ql-n5m">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Contact Us!"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="73" y="208" width="254" height="72"/>
-                                </variation>
-                                <connections>
-                                    <action selector="contactUsOnButtonPressed:" destination="ivF-Ie-D2o" eventType="touchUpInside" id="Ekf-BD-dZt"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njH-MI-MsN">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="3H9-ms-zfC"/>
+                                    <constraint firstAttribute="width" constant="254" id="aqn-IG-xTn"/>
+                                </constraints>
                                 <state key="normal" title="Sign Out"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="73" y="288" width="254" height="72"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3H9-ms-zfC"/>
+                                        <exclude reference="aqn-IG-xTn"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="3H9-ms-zfC"/>
+                                        <include reference="aqn-IG-xTn"/>
+                                    </mask>
                                 </variation>
                                 <connections>
                                     <action selector="signoutOnButtonPressed:" destination="ivF-Ie-D2o" eventType="touchUpInside" id="Awn-sF-NSi"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qdq-Ql-n5m">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="SB3-cY-7Kf"/>
+                                    <constraint firstAttribute="height" constant="72" id="yfa-BK-jZf"/>
+                                </constraints>
+                                <state key="normal" title="Contact Us!"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="SB3-cY-7Kf"/>
+                                        <exclude reference="yfa-BK-jZf"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="SB3-cY-7Kf"/>
+                                        <include reference="yfa-BK-jZf"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="contactUsOnButtonPressed:" destination="ivF-Ie-D2o" eventType="touchUpInside" id="Ekf-BD-dZt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="njH-MI-MsN" firstAttribute="leading" secondItem="S7W-J0-fFF" secondAttribute="leadingMargin" constant="53" id="2nc-if-pDf"/>
+                            <constraint firstItem="Qdq-Ql-n5m" firstAttribute="leading" secondItem="S7W-J0-fFF" secondAttribute="leadingMargin" constant="53" id="Aub-JJ-9bS"/>
+                            <constraint firstItem="huI-oE-z6v" firstAttribute="top" secondItem="njH-MI-MsN" secondAttribute="bottom" constant="191" id="HJL-3n-ZiJ"/>
+                            <constraint firstItem="Qdq-Ql-n5m" firstAttribute="top" secondItem="wHc-Fb-zaR" secondAttribute="bottom" constant="8" id="JHn-3g-36d"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qdq-Ql-n5m" secondAttribute="trailing" constant="53" id="Kgz-eH-Zjs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="njH-MI-MsN" secondAttribute="trailing" constant="53" id="Ry9-wh-KEd"/>
+                            <constraint firstItem="njH-MI-MsN" firstAttribute="top" secondItem="Qdq-Ql-n5m" secondAttribute="bottom" constant="8" id="dS0-FA-Vzg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qdq-Ql-n5m" secondAttribute="trailing" constant="53" id="hlB-OD-Po1"/>
+                            <constraint firstItem="wHc-Fb-zaR" firstAttribute="top" secondItem="cs0-jg-zNz" secondAttribute="bottom" constant="64" id="kEO-E1-1do"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wHc-Fb-zaR" secondAttribute="trailing" constant="53" id="sBo-ZY-w0r"/>
+                            <constraint firstItem="wHc-Fb-zaR" firstAttribute="leading" secondItem="S7W-J0-fFF" secondAttribute="leadingMargin" constant="53" id="wmu-mT-XCl"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="wHc-Fb-zaR"/>
-                                <exclude reference="Qdq-Ql-n5m"/>
                                 <exclude reference="njH-MI-MsN"/>
+                                <exclude reference="Qdq-Ql-n5m"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="kEO-E1-1do"/>
+                                <exclude reference="sBo-ZY-w0r"/>
+                                <exclude reference="wmu-mT-XCl"/>
+                                <exclude reference="Aub-JJ-9bS"/>
+                                <exclude reference="JHn-3g-36d"/>
+                                <exclude reference="Kgz-eH-Zjs"/>
+                                <exclude reference="hlB-OD-Po1"/>
+                                <exclude reference="2nc-if-pDf"/>
+                                <exclude reference="Ry9-wh-KEd"/>
+                                <exclude reference="dS0-FA-Vzg"/>
+                                <exclude reference="HJL-3n-ZiJ"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="wHc-Fb-zaR"/>
-                                <include reference="Qdq-Ql-n5m"/>
                                 <include reference="njH-MI-MsN"/>
+                                <include reference="Qdq-Ql-n5m"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="kEO-E1-1do"/>
+                                <include reference="sBo-ZY-w0r"/>
+                                <include reference="wmu-mT-XCl"/>
+                                <include reference="Aub-JJ-9bS"/>
+                                <include reference="JHn-3g-36d"/>
+                                <exclude reference="Kgz-eH-Zjs"/>
+                                <include reference="hlB-OD-Po1"/>
+                                <include reference="2nc-if-pDf"/>
+                                <include reference="Ry9-wh-KEd"/>
+                                <exclude reference="dS0-FA-Vzg"/>
+                                <include reference="HJL-3n-ZiJ"/>
                             </mask>
                         </variation>
                     </view>

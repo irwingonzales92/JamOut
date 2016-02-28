@@ -24,6 +24,7 @@
 {
     [super viewDidLoad];
     [self setNavbar];
+    [self setButtonColors];
 }
 
 - (void)setNavbar
@@ -34,6 +35,21 @@
     [self.navigationItem setTitle: @"Jammout"];
     
     self.view.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
+}
+
+- (void)setButtonColors
+{
+    _editProfileButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
+    _editProfileButton.titleLabel.textColor = [UIColor whiteColor];
+    [_editProfileButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    _signoutButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
+    _signoutButton.titleLabel.textColor = [UIColor whiteColor];
+    [_signoutButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    _contactUsButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
+    _contactUsButton.titleLabel.textColor = [UIColor whiteColor];
+    [_contactUsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
