@@ -1,0 +1,32 @@
+PODS:
+  - Bolts/Tasks (1.6.0)
+  - DAAlertController (0.1.4)
+  - EZAudio (1.1.5):
+    - EZAudio/Full (= 1.1.5)
+  - EZAudio/Core (1.1.5)
+  - EZAudio/Full (1.1.5):
+    - EZAudio/Core
+    - TPCircularBuffer (= 1.1)
+  - JGActionSheet (1.0.5)
+  - Parse (1.12.0):
+    - Bolts/Tasks (~> 1.5)
+  - RKDropdownAlert (0.3.0)
+  - TPCircularBuffer (1.1)
+
+DEPENDENCIES:
+  - DAAlertController
+  - EZAudio (~> 1.1.4)
+  - JGActionSheet
+  - Parse
+  - RKDropdownAlert
+
+SPEC CHECKSUMS:
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
+  DAAlertController: 4735313ec65d3d69f81fdd34d01308809680350f
+  EZAudio: 3b1cb4b6d7ebca68f0c2478576d75940aad4aa99
+  JGActionSheet: 2cfca820b57a11ec4b4a5655d45ee599fbeddc05
+  Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  RKDropdownAlert: f4b3364c251829ad439dc666836a1f2dad26f4c7
+  TPCircularBuffer: 4960a919e667280f7f38963d771f45871b64fe62
+
+COCOAPODS: 0.39.0
