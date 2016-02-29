@@ -177,8 +177,6 @@
 {
     PFQuery *mainQuery = [PFQuery queryWithClassName:@"Message"];
     [mainQuery whereKey:@"invite" equalTo:invite];
-    [mainQuery selectKeys:@[@"senderName",@"sender"]];
-//    [mainQuery selectKeys:@[@"sender",@"receiver"]];
     [mainQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
     {
         if (!error)
