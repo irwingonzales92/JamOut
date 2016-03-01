@@ -9,16 +9,23 @@
 #import "InitialViewController.h"
 #import <Parse/Parse.h>
 #import "kColorConstants.h"
+#import "BackendFunctions.h"
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVKit/AVKit.h>
 
-@interface InitialViewController ()
+@interface InitialViewController () <MPMediaPickerControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) IBOutlet UIButton *signupButton;
-@property (strong, nonatomic) IBOutlet UIImageView *logoImageView;
 @property (strong, nonatomic) UIImage *imageFile;
+//@property (strong, nonatomic) AVPlayer *player;
+@property (strong, nonatomic) AVPlayerViewController *avPlayerViewcontroller;
+
 
 @end
 
 @implementation InitialViewController
+
 
 - (void)viewDidLoad
 {
@@ -27,25 +34,30 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
     
-    _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 100, 360, 235)];
-    _logoImageView.image = [UIImage imageNamed:@"smaller"];
-    [self.view addSubview:_logoImageView];
+    
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"output_3NM46H" ofType:@"gif"];
+    NSData *gif = [NSData dataWithContentsOfFile:filePath];
+    
+    UIWebView *webViewBG = [[UIWebView alloc] initWithFrame:self.view.frame];
+    [webViewBG loadData:gif MIMEType:@"image/gif" textEncodingName:nil baseURL:nil];
+    webViewBG.userInteractionEnabled = NO;
+    [self.view addSubview:webViewBG];
+    
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma 
+#pragma mark - Button Setup
 - (void)setButtonColors
 {
-    _loginButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
-    _loginButton.titleLabel.textColor = [UIColor whiteColor];
-    [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
-    _signupButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
-    _signupButton.titleLabel.textColor = [UIColor whiteColor];
-    [_signupButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [BackendFunctions buttonSetupWithButton:_loginButton];
+    [BackendFunctions buttonSetupWithButton:_signupButton];
 }
 
 #pragma 

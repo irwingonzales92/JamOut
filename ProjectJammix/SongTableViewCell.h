@@ -13,4 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *customImageView;
 @property (strong, nonatomic) IBOutlet UILabel *songLabel;
+
++ (void)setStyleingWithCell:(SongTableViewCell *)cell;
+
 @end

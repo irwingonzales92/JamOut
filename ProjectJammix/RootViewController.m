@@ -45,18 +45,12 @@
                                                                        NSFontAttributeName: [UIFont fontWithName:@"Avenir" size:20.0f]                                                                      }];
     [self.navigationController.navigationBar setBackgroundColor:[kColorConstants darkerBlueWithAlpha:1.0]];
     [self.navigationItem setTitle: @"Jammout"];
-    
-    
 }
 
 
 - (void)setTableViewColor
 {
-    [_tableView.layer setBorderColor:[[kColorConstants darkBlueWithAlpha:1.0] CGColor]];
-    [_tableView.layer setBorderWidth:1.9];
-    [_tableView.layer setCornerRadius:0.0f];
-    [_tableView.layer setMasksToBounds:YES];
-    
+    [BackendFunctions setupTableView:_tableView];
 }
 
 - (void)useRefreshControl
@@ -122,12 +116,7 @@
          }
      }];
     
-    
-    [cell.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [cell.layer setBorderWidth:1.9];
-    [cell.layer setCornerRadius:0.0f];
-    [cell.layer setMasksToBounds:YES];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [SongTableViewCell setStyleingWithCell:cell];
 
     return cell;
 }

@@ -23,11 +23,13 @@
 @property (strong, nonatomic) NSURL *filePath;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (strong, nonatomic) IBOutlet UIButton *collabButton;
+@property (strong, nonatomic) IBOutlet UIButton *stopButton;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *songTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *artistLabel;
 @property (strong, nonatomic) IBOutlet UILabel *genreLabel;
 @property (strong, nonatomic) UIAlertController *alert;
+@property (strong, nonatomic) IBOutlet UIView *customView;
 @property (strong, nonatomic) IBOutlet UILabel *stitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *aLabel;
 @property (strong, nonatomic) IBOutlet UILabel *glabel;
@@ -58,11 +60,19 @@
     self.seekBar.maximumValue = self.audioPlayer.duration;
     
     self.updateTimer =     [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updateSeekBar) userInfo:nil repeats:YES];
+    [BackendFunctions setupImageView:_imageView];
+    [BackendFunctions setupCustomView:_customView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [_audioPlayer stop];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
     [_audioPlayer stop];
 }
 
@@ -90,9 +100,15 @@
     _playButton.titleLabel.textColor = [UIColor whiteColor];
     [_playButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    _collabButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
-    _collabButton.titleLabel.textColor = [UIColor whiteColor];
-    [_collabButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    _collabButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
+//    _collabButton.titleLabel.textColor = [UIColor whiteColor];
+//    [_collabButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    [BackendFunctions setupCallToActionButton:_collabButton];
+    
+    _stopButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
+    _stopButton.titleLabel.textColor = [UIColor whiteColor];
+    [_stopButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 - (void)setDelegates
@@ -128,6 +144,7 @@
 - (void)playFile
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Song"];
+    [query whereKey:@"title" equalTo:_song[@"title"]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!object) {
             NSLog(@"The Audio file could not be found, request failed.");
@@ -191,13 +208,17 @@
     if (!_audioPlayer.isPlaying)
     {
         [self playFile];
-        [_playButton setTitle:@"Stop" forState:UIControlStateNormal];
+        [_playButton setTitle:@"Pause" forState:UIControlStateNormal];
     }
     else
     {
         [_audioPlayer pause];
         [_playButton setTitle:@"Play" forState:UIControlStateNormal];
     }
+}
+- (IBAction)stopSongFullyOnButtonPressed:(id)sender
+{
+    [_audioPlayer stop];
 }
 
 - (void)didReceiveMemoryWarning

@@ -36,21 +36,81 @@
     [self setDelegates];
     [self hideKeyboard];
     [self setButtonColors];
-    
-    _userNameTextField.placeholder = @"username";
-    _emailTextField.placeholder = @"email";
-    _passwordTextField.placeholder = @"password";
-    _confirmPassWordTextField.placeholder = @"conform password";
-    
+    [self setTextfieldDesign];
     self.view.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
 }
 
+//-------------------------------------------------- CLASS ACTIONS ----------------------------------------------------------------
+
+- (IBAction)signUpOnButtonPressed:(UIButton *)sender
+{
+    [self signUpLogic];
+}
+
+#pragma
+#pragma mark - Navigation
+- (IBAction)backToInitalViewControllerOnButtonPressed:(UIButton *)sender
+{
+    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+}
+
+//-------------------------------------------------- HELPER METHODS-----------------------------------------------------------------
+
+#pragma
+#pragma mark - Setup
 - (void)setDelegates
 {
     _userNameTextField.delegate = self;
     _emailTextField.delegate = self;
     _passwordTextField.delegate = self;
     _confirmPassWordTextField.delegate = self;
+}
+
+
+#pragma
+#pragma mark - Button Stuff
+- (void)setButtonColors
+{
+    [BackendFunctions buttonSetupWithButton:_submitButton];
+    
+    [BackendFunctions buttonSetupWithButton:_cancelButton];
+}
+
+
+#pragma
+#pragma mark - Textfield Stuff
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == _userNameTextField )
+    {
+        [_userNameTextField resignFirstResponder];
+        [_emailTextField becomeFirstResponder];
+    }
+    else if (textField == _emailTextField)
+    {
+        [_emailTextField resignFirstResponder];
+        [_passwordTextField becomeFirstResponder];
+    }
+    else if (textField == _passwordTextField)
+    {
+        [_passwordTextField resignFirstResponder];
+        [_confirmPassWordTextField becomeFirstResponder];
+    }
+    else if (textField == _confirmPassWordTextField)
+    {
+        [self hideKeyboard];
+        [self signUpLogic];
+    }
+    return YES;
 }
 
 - (void)hideKeyboard
@@ -63,17 +123,40 @@
     _confirmPassWordTextField.secureTextEntry = YES;
 }
 
-- (void)setButtonColors
+- (void)setTextfieldDesign
 {
-    _submitButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
-    _submitButton.titleLabel.textColor = [UIColor whiteColor];
-    [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //TextField Design
+    [BackendFunctions textfieldSetupWithTextfield:_userNameTextField andPlaceholderText:@"Username"];
     
-    _cancelButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
-    _cancelButton.titleLabel.textColor = [UIColor whiteColor];
-    [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [BackendFunctions textfieldSetupWithTextfield:_emailTextField andPlaceholderText:@"Email"];
+    
+    [BackendFunctions textfieldSetupWithTextfield:_passwordTextField andPlaceholderText:@"Password"];
+    
+    [BackendFunctions textfieldSetupWithTextfield:_confirmPassWordTextField andPlaceholderText:@"Confirm Password"];
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (_userNameTextField.isEditing)
+    {
+        _userNameTextField.placeholder = nil;
+    }
+    else if (_passwordTextField.isEditing)
+    {
+        _passwordTextField.placeholder = nil;
+    }
+    else if (_emailTextField.isEditing)
+    {
+        _emailTextField.placeholder = nil;
+    }
+    else if (_confirmPassWordTextField.isEditing)
+    {
+        _confirmPassWordTextField.placeholder = nil;
+    }
+}
+
+#pragma
+#pragma mark - Signup Logic 
 - (void)signUpLogic
 {
     if ([_userNameTextField.text isEqualToString:@""])
@@ -119,33 +202,10 @@
              }
          }];
     }
-
-}
-
-- (IBAction)signUpOnButtonPressed:(UIButton *)sender
-{
-    [self signUpLogic];
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self hideKeyboard];
-    [self signUpLogic];
-    return YES;
-}
-
-- (IBAction)backToInitalViewControllerOnButtonPressed:(UIButton *)sender
-{
-    
 }
 
 #pragma
-#pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-}
-
+#pragma mark - Memory Warning
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

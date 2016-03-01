@@ -29,6 +29,8 @@
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 @property (strong, nonatomic) AVAudioSession *audioSession;
 
+@property (strong, nonatomic) PFObject *song;
+
 @end
 
 @implementation ProfileViewController
@@ -133,8 +135,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ProfileSongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    PFObject *song = [_songArray objectAtIndex:indexPath.row];
-    PFFile *songPhoto = [song objectForKey:@"image"];
+    _song = [_songArray objectAtIndex:indexPath.row];
+    PFFile *songPhoto = [_song objectForKey:@"image"];
     [songPhoto getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error)
      {
          if (!error)
@@ -153,18 +155,18 @@
      }];
 
     
-    cell.songTitleLabel.text = song[@"title"];
+    cell.songTitleLabel.text = _song[@"title"];
     cell.songTitleLabel.textColor = [kColorConstants darkBlueWithAlpha:1.0];
     [cell.songTitleLabel setFont:[UIFont fontWithName:@"Avenir" size:20]];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [ProfileSongTableViewCell setStyleingWithCell:cell];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    PFObject *song = [_songArray objectAtIndex:indexPath.row];
-    [self playObject:song[@"title"]];
+    _song = [_songArray objectAtIndex:indexPath.row];
+    [self playObject:_song[@"title"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -189,6 +191,7 @@
 - (void)playLogic
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Song"];
+    [query whereKey:@"title" equalTo:_song[@"title"]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!object) {
             NSLog(@"The Audio file could not be found, request failed.");

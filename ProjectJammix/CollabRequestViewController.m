@@ -23,6 +23,37 @@
 @property (strong, nonatomic) PFObject *invite;
 @property (strong, nonatomic) UIImage *imageFile;
 
+@property (strong, nonatomic) NSArray *invitedYesArray;
+@property (strong, nonatomic) NSArray *invitedNoArray;
+@property (strong, nonatomic) NSArray *sentYesArray;
+@property (strong, nonatomic) NSArray *sentNoArray;
+
+@property (strong, nonatomic) NSMutableArray *collectiveInviteArray;
+
+#warning App is getting confused to which segue should be fired off.
+
+/*
+***This controller is NOT working***
+ 
+--------------------------------------------------------------------------------------------------------------------
+ *PROBLEM: Even when values are false or "Not Accepted" it still fires to the chat segue.
+--------------------------------------------------------------------------------------------------------------------
+
+Possible Solution to problem 1 A.
+
+Assumption is that the query is messed up.try fixing query by querying for 2
+different values, invites that are accepted and ones that are not, rather than combining queries.
+On the frontend, merge those queries into a single array. Have two different MessageTableViewCells
+and designate each of them to display the ones that are accepted and the ones that arent.
+ 
+ THIS ANSWER IS WRONG! ^
+
+Possible solution to problem 1 B.
+
+Add a segmented control on the UI, have that dictate which cells to display and which query
+to pull when clicked. Similar to the one you had in Project Relay.
+*/
+
 @end
 
 @implementation CollabRequestViewController
@@ -33,7 +64,7 @@
     [self inviteQuery];
     [self setNavbar];
     [self useRefreshControl];
-    
+    [self reloadTableView];
 }
 
 - (void)setNavbar
@@ -51,11 +82,19 @@
 {
     [BackendFunctions inviteQuery:^(NSArray *array, NSError *error)
     {
-        _inviteArray = array;
-        [self.tableView reloadData];
-        [_refreshControl endRefreshing];
+        if (!error)
+        {
+            _inviteArray = array;
+            [self.tableView reloadData];
+            [_refreshControl endRefreshing];
+        }
+        else
+        {
+            NSLog(@"%@",error.localizedDescription);
+        }
     }];
 }
+
 
 - (void)reloadTableView
 {
@@ -77,7 +116,8 @@
     MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     _invite = [_inviteArray objectAtIndex:indexPath.row];
-    PFUser *sendingUser = _invite[@"sender"];
+    PFUser *sendingUser = _invite[@"receiver"];
+    [sendingUser fetchIfNeeded];
     PFObject *song = _invite[@"song"];
     
     PFFile *songPhoto = [sendingUser objectForKey:@"profileImage"];
@@ -121,13 +161,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_invite[@"accepted"] == FALSE)
+    
+#warning PROBLEM 1
+    if (_invite[@"accepted"] == [NSNumber numberWithBool:NO])
     {
         _invite = _inviteArray[indexPath.row];
         PFObject *song = _invite[@"song"];
         [self performSegueWithIdentifier:@"toCollabMediaSegue" sender:song];
     }
-    else
+    else if (_invite[@"accepted"] == [NSNumber numberWithBool:YES])
     {
         _invite = _inviteArray[indexPath.row];
         PFObject *song = _invite[@"song"];
@@ -146,16 +188,16 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if (_invite[@"accepted"] == false)
+    PFObject *song = (PFObject *)sender;
+    
+    if (_invite[@"accepted"] == [NSNumber numberWithBool:NO])
     {
-        PFObject *song = (PFObject *)sender;
         CollabMediaViewController *vc = [segue destinationViewController];
         vc.song = song;
         vc.invite = _invite;
     }
-    else
+    else if (_invite[@"accepted"] == [NSNumber numberWithBool:YES])
     {
-        PFObject *song = (PFObject *)sender;
         ChatViewController *vc = [segue destinationViewController];
         vc.invite = _invite;
     }

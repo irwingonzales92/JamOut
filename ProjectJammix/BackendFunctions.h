@@ -39,18 +39,19 @@ typedef void (^ArrayReturnBlock)(NSArray *array, NSError *error);
 
 #pragma
 #pragma mark - Basic Chat Query/Save
-+ (void)chatQueryWithSpotId:(NSString *)spotId
-                    inArray:(ArrayReturnBlock)returnArray;
-
-+ (void)saveChatMessageWithText:(NSString *)message
-                       withUser:(PFUser *)user
-                      andSpotId: (PFObject *)spot;
-
 + (void)userArrayQuery:(ArrayReturnBlock)returnArray;
 
 + (void)songArrayQuery:(ArrayReturnBlock)returnArray;
 
 + (void)inviteQuery:(ArrayReturnBlock)returnArray;
+
++ (void)acceptedInviteQuery:(ArrayReturnBlock)returnArray;
+
++ (void)notAcceptedInviteQuery:(ArrayReturnBlock)returnArray;
+
++ (void)inviteSentQuery:(ArrayReturnBlock)returnArray;
+
++ (void)notAcceptedSentQuery:(ArrayReturnBlock)returnArray;
 
 + (void)messageQueryWithInviteId:(PFObject *)invite
                    onReturnArray:(ArrayReturnBlock)returnArray;
@@ -65,5 +66,17 @@ typedef void (^ArrayReturnBlock)(NSArray *array, NSError *error);
                             withMessage: (NSString *)message
                             andSelector:(SEL)selector
                            onCompletion:(CompletionWithErrorBlock)onCompletion;
+
++ (void)buttonSetupWithButton:(UIButton *)button;
+
++ (void)textfieldSetupWithTextfield:(UITextField *)textfield andPlaceholderText:(NSString *)string;
+
++ (void)setupTableView:(UITableView *)tableView;
+
++ (void)setupCallToActionButton:(UIButton *)button;
+
++ (void)setupImageView:(UIImageView *)imageView;
+
++ (void)setupCustomView:(UIView *)view;
 
 @end

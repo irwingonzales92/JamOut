@@ -8,6 +8,9 @@
 
 #import "BackendFunctions.h"
 #import <Parse/Parse.h>
+#import <AVFoundation/AVFoundation.h>
+#import "kColorConstants.h"
+#import "SongTableViewCell.h"
 
 @implementation BackendFunctions
 
@@ -74,52 +77,6 @@
 #pragma
 #pragma mark - Basic Chat Query & Save
 
-+ (void)chatQueryWithSpotId:(NSString *)spotId
-                    inArray:(ArrayReturnBlock)returnArray
-{
-    PFObject *chatObject = [PFObject objectWithClassName:@"ChatWidget"];
-    
-    PFQuery *chatWidgetQuery = [PFQuery queryWithClassName:@"ChatWidget"];
-    [chatWidgetQuery whereKey:chatObject[@"objectId"] equalTo:spotId];
-    [chatWidgetQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
-     {
-         if (!error)
-         {
-             NSLog(@"NO ERROR");
-         }
-         else
-         {
-             NSLog(@"%@",error.localizedDescription);
-         }
-         returnArray(objects, error);
-     }];
-}
-
-+ (void)saveChatMessageWithText:(NSString *)message
-                       withUser:(PFUser *)user
-                      andSpotId: (PFObject *)spot
-{
-    user = [PFUser user];
-    spot = [PFObject objectWithClassName:@"Cypher"];
-    PFObject *chatMessage = [PFObject objectWithClassName:@"ChatWidget"];
-    
-    [chatMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error)
-     {
-         
-         if (!error && succeeded)
-         {
-             chatMessage[@"sender"] = user.objectId;
-             chatMessage[@"cypher"] = spot.objectId;
-             chatMessage[@"message"] = message;
-         }
-         else
-         {
-             NSLog(@"YOU SHALL NOT PASS %@",error.localizedDescription);
-         }
-         
-     }];
-}
-
 + (void)userArrayQuery:(ArrayReturnBlock)returnArray
 {
     PFQuery *query = [PFUser query];
@@ -147,6 +104,9 @@
     }];
 }
 
+#pragma
+#pragma mark - Invite Queries
+
 + (void)inviteQuery:(ArrayReturnBlock)returnArray
 {
     PFQuery *query1 = [PFQuery queryWithClassName:@"Invite"];
@@ -154,12 +114,12 @@
     [query1 whereKey:@"receiver" equalTo:[PFUser currentUser]];
     
     
-    PFQuery *query2 = [PFQuery queryWithClassName:@"Invite"];
-    [query2 whereKey:@"sender" equalTo:[PFUser currentUser]];
+//    PFQuery *query2 = [PFQuery queryWithClassName:@"Invite"];
+//    [query2 whereKey:@"sender" equalTo:[PFUser currentUser]];
     
-    PFQuery *mainQuery = [PFQuery orQueryWithSubqueries:@[query1, query2]];
-    [mainQuery selectKeys:@[@"receiver",@"sender",@"song",@"accepted"]];
-    [mainQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+    //PFQuery *mainQuery = [PFQuery orQueryWithSubqueries:@[query1, query2]];
+    [query1 selectKeys:@[@"receiver",@"sender",@"song",@"accepted"]];
+    [query1 findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
     {
         if (!error)
         {
@@ -172,11 +132,91 @@
     }];
 }
 
+// Reciever Queries
++ (void)acceptedInviteQuery:(ArrayReturnBlock)returnArray
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Invite"];
+    [query whereKey:@"receiver" equalTo:[PFUser currentUser]];
+    [query whereKey:@"accepted" equalTo:[NSNumber numberWithBool:YES]];
+    [query selectKeys:@[@"receiver",@"sender",@"song",@"accepted"]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+    {
+        if (!error)
+        {
+            returnArray(objects, error);
+        }
+        else
+        {
+            NSLog(@"%@",error.localizedDescription);
+        }
+    }];
+}
+
++ (void)notAcceptedInviteQuery:(ArrayReturnBlock)returnArray
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Invite"];
+    [query whereKey:@"reciever" equalTo:[PFUser currentUser]];
+    [query whereKey:@"accepted" equalTo:[NSNumber numberWithBool:NO]];
+    [query selectKeys:@[@"receiver",@"sender",@"song",@"accepted"]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+    {
+        if (!error)
+        {
+            returnArray(objects, error);
+        }
+        else
+        {
+            NSLog(@"Cannot Pull Messages %@",error.localizedDescription);
+        }
+    }];
+}
+
+// Sender Queries
++ (void)inviteSentQuery:(ArrayReturnBlock)returnArray
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Invite"];
+    [query whereKey:@"sender" equalTo:[PFUser currentUser]];
+//    [query whereKey:@"accepted" equalTo:[NSNumber numberWithBool:YES]];
+//    [query selectKeys:@[@"receiver",@"sender",@"song",@"accepted"]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+    {
+        if (!error)
+        {
+            returnArray(objects, error);
+        }
+        else
+        {
+            NSLog(@"Cannot Pull Messages %@",error.localizedDescription);
+        }
+    }];
+}
+
++ (void)notAcceptedSentQuery:(ArrayReturnBlock)returnArray
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Invite"];
+    [query whereKey:@"sender" equalTo:[PFUser currentUser]];
+    [query whereKey:@"accepted" equalTo:[NSNumber numberWithBool:NO]];
+    [query selectKeys:@[@"receiver",@"sender",@"song",@"accepted"]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+     {
+         if (!error)
+         {
+             returnArray(objects, error);
+         }
+         else
+         {
+             NSLog(@"Cannot Pull Messages %@",error.localizedDescription);
+         }
+     }];
+}
+
 + (void)messageQueryWithInviteId:(PFObject *)invite
                  onReturnArray:(ArrayReturnBlock)returnArray
 {
     PFQuery *mainQuery = [PFQuery queryWithClassName:@"Message"];
     [mainQuery whereKey:@"invite" equalTo:invite];
+    //[mainQuery selectKeys:@[@"senderName",@"sender"]];
+//    [mainQuery selectKeys:@[@"sender",@"receiver"]];
     [mainQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
     {
         if (!error)
@@ -247,6 +287,65 @@
     [alert addAction:ok];
     [alert addAction:cancel];
     return alert;
+}
+
++ (void)buttonSetupWithButton:(UIButton *)button
+{
+    button.backgroundColor = [UIColor clearColor];
+    button.titleLabel.textColor = [UIColor whiteColor];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.layer.borderColor = [[UIColor whiteColor]CGColor];
+    button.layer.cornerRadius=8.0f;
+    button.layer.masksToBounds = YES;
+    button.layer.borderWidth = 1.0f;
+}
+
++ (void)setupCallToActionButton:(UIButton *)button
+{
+    button.backgroundColor = [kColorConstants greenWithAlpha:1.0];
+    button.titleLabel.textColor = [UIColor whiteColor];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.layer.borderColor = [[UIColor whiteColor]CGColor];
+    button.layer.cornerRadius=8.0f;
+    button.layer.masksToBounds = YES;
+    button.layer.borderWidth = 1.0f;
+}
+
++ (void)textfieldSetupWithTextfield:(UITextField *)textfield andPlaceholderText:(NSString *)string
+{
+    textfield.backgroundColor = [UIColor clearColor];
+    textfield.layer.cornerRadius=8.0f;
+    textfield.layer.masksToBounds=YES;
+    textfield.layer.borderColor=[[UIColor whiteColor]CGColor];
+    textfield.layer.borderWidth= 1.0f;
+    NSAttributedString *str = [[NSAttributedString alloc] initWithString:string attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }];
+    textfield.attributedPlaceholder = str;
+    textfield.textColor = [UIColor whiteColor];
+    textfield.tintColor = [UIColor whiteColor];
+}
+
++ (void)setupTableView:(UITableView *)tableView
+{
+    [tableView.layer setBorderColor:[[kColorConstants darkBlueWithAlpha:1.0] CGColor]];
+    [tableView.layer setBorderWidth:1.9];
+    [tableView.layer setCornerRadius:0.0f];
+    [tableView.layer setMasksToBounds:YES];
+}
+
++ (void)setupImageView:(UIImageView *)imageView
+{
+    imageView.layer.cornerRadius = 8.0f;
+    imageView.layer.masksToBounds = YES;
+    imageView.layer.borderColor = [[UIColor blackColor]CGColor];
+    imageView.layer.borderWidth = 1.0f;
+}
+
++ (void)setupCustomView:(UIView *)view
+{
+    view.layer.cornerRadius = 8.0f;
+    view.layer.masksToBounds = YES;
+    view.layer.borderColor = [[UIColor blackColor]CGColor];
+    view.layer.borderWidth = 1.0f;
 }
 
 @end

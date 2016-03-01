@@ -12,7 +12,7 @@
 #import <Parse/Parse.h>
 #import "kColorConstants.h"
 
-@interface LoginViewController () <UITextFieldDelegate>
+@interface LoginViewController () <UITextFieldDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UIButton *loginButton;
@@ -29,15 +29,40 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setButtonColors];
+    [self setDesign];
     [self hideKeyboard];
     [self setDelegates];
     self.view.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
     
-    _usernameTextField.placeholder = @"username";
-    _passwordTextField.placeholder = @"password";
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
 }
 
+//-------------------------------------------------- CLASS ACTIONS ----------------------------------------------------------------
+#pragma 
+#pragma mark - Button Action
+- (IBAction)logInOnButtonPressed:(UIButton *)sender
+{
+    [self hideKeyboard];
+    [self loginLogic];
+}
+
+- (IBAction)didCancelOnButtonPressed:(id)sender
+{
+    
+}
+
+#pragma
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+}
+
+//-------------------------------------------------- HELPER METHODS-----------------------------------------------------------------
+#pragma
+#pragma mark - Setup
 - (void)hideKeyboard
 {
     [_usernameTextField resignFirstResponder];
@@ -51,27 +76,44 @@
     _passwordTextField.delegate = self;
 }
 
-- (void)setButtonColors
+- (void)setDesign
 {
-    _loginButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
-    _loginButton.titleLabel.textColor = [UIColor whiteColor];
-    [_loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //Button Design
+    [BackendFunctions buttonSetupWithButton:_loginButton];
+    [BackendFunctions buttonSetupWithButton:_cancelButton];
     
-    _cancelButton.backgroundColor = [kColorConstants greenWithAlpha:1.0];
-    _cancelButton.titleLabel.textColor = [UIColor whiteColor];
-    [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //TextField Design
+    [BackendFunctions textfieldSetupWithTextfield:_passwordTextField andPlaceholderText:@"password"];
+    [BackendFunctions textfieldSetupWithTextfield:_usernameTextField andPlaceholderText:@"username"];
+    
 }
 
-- (IBAction)logInOnButtonPressed:(UIButton *)sender
+#pragma
+#pragma mark - Textfield Delegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self hideKeyboard];
-    [self loginLogic];
+    if (_usernameTextField.isEditing)
+    {
+        _usernameTextField.placeholder = nil;
+    }
+    else if (_passwordTextField.isEditing)
+    {
+        _passwordTextField.placeholder = nil;
+    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self hideKeyboard];
-    [self loginLogic];
+    if (textField == _usernameTextField)
+    {
+        [_usernameTextField resignFirstResponder];
+        [_passwordTextField becomeFirstResponder];
+    }
+    else if (textField == _passwordTextField)
+    {
+        [self hideKeyboard];
+        [self loginLogic];
+    }
     return YES;
 }
 
@@ -102,18 +144,8 @@
     }
 }
 
-- (IBAction)didCancelOnButtonPressed:(id)sender
-{
-    
-}
-
-#pragma
-#pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-}
-
+#pragma 
+#pragma mark - Memory Warning
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

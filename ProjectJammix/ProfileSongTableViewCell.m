@@ -20,4 +20,13 @@
     // Configure the view for the selected state
 }
 
++ (void)setStyleingWithCell:(ProfileSongTableViewCell *)cell
+{
+    [cell.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [cell.layer setBorderWidth:1.9];
+    [cell.layer setCornerRadius:0.0f];
+    [cell.layer setMasksToBounds:YES];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
 @end

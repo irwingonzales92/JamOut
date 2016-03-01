@@ -29,6 +29,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *senderLabel;
 @property (strong, nonatomic) IBOutlet UISlider *seekBar;
 @property (nonatomic, strong) NSTimer *updateTimer;
+@property (strong, nonatomic) IBOutlet UIButton *declineButton;
+@property (strong, nonatomic) IBOutlet UIButton *acceptButton;
+
 
 @property (strong, nonatomic) PFFile *audioFile;
 
@@ -40,6 +43,7 @@
 {
     [super viewDidLoad];
     [self setNavbar];
+    [self buttonStyling];
     
     self.view.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
     self.seekBar.minimumValue = 0;
@@ -65,6 +69,12 @@
     [self.navigationItem setTitle: @"Jammout"];
 }
 
+- (void)buttonStyling
+{
+    [BackendFunctions buttonSetupWithButton:_playButton];
+    [BackendFunctions buttonSetupWithButton:_acceptButton];
+    [BackendFunctions buttonSetupWithButton:_declineButton];
+}
 
 - (void)setDelegates
 {
@@ -85,6 +95,7 @@
 - (void)playFile
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Song"];
+    [query whereKey:@"title" equalTo:_song[@"title"]];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (!object) {
             NSLog(@"The Audio file could not be found, request failed.");

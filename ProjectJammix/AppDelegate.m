@@ -19,6 +19,26 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    
+//    UIViewController *initialVC =[storyboard instantiateViewControllerWithIdentifier:@"initialVC"];
+//    
+//    UITabBarController *tabBar =[storyboard instantiateViewControllerWithIdentifier:@"tabBar"];
+//    
+//    PFUser *currentUser = [PFUser currentUser];
+//    if (currentUser)
+//    {
+//        self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+//        self.window.rootViewController = tabBar;
+//    } else
+//    {
+//        self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+//        self.window.rootViewController = initialVC;
+//    }
+//    
+//    [self.window makeKeyAndVisible];
+
+    
     [Parse enableLocalDatastore];
     
     // Initialize Parse.
