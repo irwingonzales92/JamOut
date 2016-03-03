@@ -262,6 +262,20 @@
     }];
 }
 
++ (BOOL)checkIfUserIsInvited:(PFObject *)passedInvite withError:(NSError *)error WithReturnObject:(ObjectReturnBlock)returnObject
+{
+    if (passedInvite[@"accepted"] == [NSNumber numberWithBool:YES])
+    {
+        returnObject(passedInvite,error);
+        return YES;
+    }
+    else
+    {
+        NSLog(@"Does Not Match!");
+        return NO;
+    }
+}
+
 + (UIAlertController *)showNotification:(NSString *)title
                             withMessage: (NSString *)message
                             andSelector:(SEL)selector

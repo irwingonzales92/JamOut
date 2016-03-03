@@ -64,7 +64,7 @@ to pull when clicked. Similar to the one you had in Project Relay.
     [self inviteQuery];
     [self setNavbar];
     [self useRefreshControl];
-    [self reloadTableView];
+    [_tableView reloadData];
 }
 
 - (void)setNavbar
@@ -116,35 +116,47 @@ to pull when clicked. Similar to the one you had in Project Relay.
     MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
     _invite = [_inviteArray objectAtIndex:indexPath.row];
-    PFUser *sendingUser = _invite[@"receiver"];
+//    [_tableView reloadData];
+    PFUser *invitedUser = _invite[@"receiver"];
+    PFUser *sendingUser = _invite[@"sender"];
+    [invitedUser fetchIfNeeded];
     [sendingUser fetchIfNeeded];
     PFObject *song = _invite[@"song"];
     
     PFFile *songPhoto = [sendingUser objectForKey:@"profileImage"];
     [songPhoto getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error)
-     {
-         if (!error)
-         {
-             _imageFile = [UIImage imageWithData:data];
-             cell.songImageView.image = _imageFile;
-             [cell.songImageView.layer setBorderColor:[[UIColor blackColor]CGColor]];
-             [cell.songImageView.layer setBorderWidth:1.3];
-             [cell.songImageView.layer setCornerRadius:5.0f];
-             [cell.songImageView.layer setMasksToBounds:YES];
-         }
-         else
-         {
-             NSLog(@"Something Went Wrong %@",error.localizedDescription);
-         }
-     }];
+    {
+        if (!error)
+        {
+            _imageFile = [UIImage imageWithData:data];
+            cell.songImageView.image = _imageFile;
+            [cell.songImageView.layer setBorderColor:[[UIColor blackColor]CGColor]];
+            [cell.songImageView.layer setBorderWidth:1.3];
+            [cell.songImageView.layer setCornerRadius:5.0f];
+            [cell.songImageView.layer setMasksToBounds:YES];
+        }
+        else
+        {
+            NSLog(@"Something Went Wrong %@",error.localizedDescription);
+        }
+    }];
 
-    
     [cell.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
     [cell.layer setBorderWidth:1.3];
     [cell.layer setCornerRadius:0.0f];
     [cell.layer setMasksToBounds:YES];
-    cell.backgroundColor = [kColorConstants darkBlueWithAlpha:1.0];
+    
+    if (_invite[@"accepted"] == [NSNumber numberWithBool:NO])
+    {
+        cell.backgroundColor = [kColorConstants darkBlueWithAlpha:1.0];
+    }
+    else
+    {
+        cell.backgroundColor = [UIColor redColor];
+    }
+//    cell.backgroundColor = [kColorConstants darkBlueWithAlpha:1.0];
     cell.artistLabel.textColor = [UIColor whiteColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.artistLabel.text = sendingUser[@"username"];
     return cell;
 }
@@ -190,13 +202,15 @@ to pull when clicked. Similar to the one you had in Project Relay.
 {
     PFObject *song = (PFObject *)sender;
     
-    if (_invite[@"accepted"] == [NSNumber numberWithBool:NO])
+    //if (_invite[@"accepted"] == [NSNumber numberWithBool:NO])
+    if ([segue.identifier isEqualToString:@"toCollabMediaSegue"])
     {
         CollabMediaViewController *vc = [segue destinationViewController];
         vc.song = song;
         vc.invite = _invite;
     }
-    else if (_invite[@"accepted"] == [NSNumber numberWithBool:YES])
+    //else if (_invite[@"accepted"] == [NSNumber numberWithBool:YES])
+    else if ([segue.identifier isEqualToString:@"directToChatSegue"])
     {
         ChatViewController *vc = [segue destinationViewController];
         vc.invite = _invite;

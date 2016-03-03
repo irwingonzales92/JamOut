@@ -20,6 +20,7 @@ typedef void (^CompletionWithErrorBlock)(BOOL success, NSError *error);
 typedef void (^CompletionWithDictionaryBlock)(NSDictionary *dictionary, NSError *error);
 typedef void (^CompletionWithArrayBlock)(NSArray *array, NSError *error);
 typedef void (^ArrayReturnBlock)(NSArray *array, NSError *error);
+typedef void (^ObjectReturnBlock)(PFObject *object, NSError *error);
 
 #pragma
 #pragma mark - Basic User Functions
@@ -61,6 +62,10 @@ typedef void (^ArrayReturnBlock)(NSArray *array, NSError *error);
 
 + (void)querySongsFromUser:(PFUser *)user
                  WithArray:(ArrayReturnBlock)returnArray;
+
++ (BOOL)checkIfUserIsInvited:(PFObject *)passedInvite
+                   withError:(NSError *)error
+            WithReturnObject:(ObjectReturnBlock)returnObject;
 
 + (UIAlertController *)showNotification:(NSString *)title
                             withMessage: (NSString *)message
