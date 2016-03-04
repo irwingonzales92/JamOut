@@ -9,6 +9,8 @@
 #import "SongListViewController.h"
 #import <Parse/Parse.h>
 #import "kColorConstants.h"
+#import "BackendFunctions.h"
+#import "SongTableViewCell.h"
 
 @interface SongListViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -33,7 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavbar];
-    [self setTableViewColor];
+//    [self setTableViewColor];
+    [BackendFunctions setupTableView:_tableView];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -90,9 +93,14 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    SongTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     _localSongs = [_songListArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = _localSongs[@"title"];
+    [SongTableViewCell setStyleingWithCell:cell];
+    cell.songLabel.text = _localSongs[@"title"];
+    cell.artistLabel.text = _localSongs[@"artist"];
+    cell.songLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
+    
     return cell;
 }
 
@@ -115,6 +123,11 @@
     [_alert addAction:cancel];
     [_alert addAction:okay];
     [self presentViewController:_alert animated:YES completion:nil];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 75;
 }
 
 -(void)sendInvite;

@@ -112,7 +112,8 @@
     PFQuery *query1 = [PFQuery queryWithClassName:@"Invite"];
 //    [query1 selectKeys:@[@"receiver",@"sender",@"song",@"accepted"]];
     [query1 whereKey:@"receiver" equalTo:[PFUser currentUser]];
-    
+//    [query1 whereKey:@"sender" equalTo:[PFUser currentUser]];
+    [query1 whereKey:@"accepted" equalTo:[NSNumber numberWithBool:YES]];
     
 //    PFQuery *query2 = [PFQuery queryWithClassName:@"Invite"];
 //    [query2 whereKey:@"sender" equalTo:[PFUser currentUser]];

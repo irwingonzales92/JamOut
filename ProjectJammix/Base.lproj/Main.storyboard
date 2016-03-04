@@ -1146,7 +1146,7 @@
                     <view key="view" contentMode="scaleToFill" id="oXb-QS-yS0">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2nl-Jm-LUW">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2nl-Jm-LUW">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1154,12 +1154,56 @@
                                     <constraint firstAttribute="height" constant="536" id="J2u-rw-RhG"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="und-7C-nZJ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="80" id="und-7C-nZJ" customClass="SongTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="und-7C-nZJ" id="cku-90-18v">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vjd-C9-gfT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                    <variation key="widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="0.0" y="-34" width="400" height="148"/>
+                                                    </variation>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Set-yA-DNs">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="92" y="8" width="216" height="24.5"/>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYe-jW-gNg">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=compact" fixedFrame="YES">
+                                                        <rect key="frame" x="92" y="50" width="216" height="21"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="vjd-C9-gfT"/>
+                                                    <exclude reference="Set-yA-DNs"/>
+                                                    <exclude reference="nYe-jW-gNg"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="vjd-C9-gfT"/>
+                                                    <include reference="Set-yA-DNs"/>
+                                                    <include reference="nYe-jW-gNg"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="artistLabel" destination="nYe-jW-gNg" id="oUr-5T-28X"/>
+                                            <outlet property="songLabel" destination="Set-yA-DNs" id="Atc-EY-aCz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <variation key="default">
@@ -1584,6 +1628,7 @@
                                 </variation>
                                 <connections>
                                     <action selector="signoutOnButtonPressed:" destination="ivF-Ie-D2o" eventType="touchUpInside" id="Awn-sF-NSi"/>
+                                    <segue destination="rxN-3B-BmL" kind="unwind" unwindAction="unwindForSegue:towardsViewController:" id="RMB-wt-M4G"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qdq-Ql-n5m">
@@ -1670,10 +1715,11 @@
                         <outlet property="contactUsButton" destination="Qdq-Ql-n5m" id="ViU-eE-U3H"/>
                         <outlet property="editProfileButton" destination="wHc-Fb-zaR" id="zdb-qi-HyX"/>
                         <outlet property="signoutButton" destination="njH-MI-MsN" id="FCQ-xu-fl1"/>
-                        <segue destination="l4w-Uw-ALJ" kind="show" identifier="backToMainSegue" id="kg2-f8-NlU"/>
+                        <segue destination="l4w-Uw-ALJ" kind="presentation" identifier="backToMainSegue" id="4sY-x0-Dhq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SsL-hs-tUZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="rxN-3B-BmL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4104" y="2174"/>
         </scene>
@@ -2525,7 +2571,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LDY-Rj-ijs"/>
-        <segue reference="Plo-Yt-veU"/>
+        <segue reference="4sY-x0-Dhq"/>
         <segue reference="TYu-1m-ORs"/>
         <segue reference="CBq-BU-WZD"/>
     </inferredMetricsTieBreakers>

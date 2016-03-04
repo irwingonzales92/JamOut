@@ -26,6 +26,10 @@
     [cell.layer setBorderWidth:1.9];
     [cell.layer setCornerRadius:0.0f];
     [cell.layer setMasksToBounds:YES];
+    [cell.songLabel setFont:[UIFont fontWithName:@"Avenir" size:20]];
+    cell.songLabel.textColor = [UIColor whiteColor];
+    [cell.artistLabel setFont:[UIFont fontWithName:@"Avenir" size:15]];
+    cell.artistLabel.textColor = [UIColor whiteColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
