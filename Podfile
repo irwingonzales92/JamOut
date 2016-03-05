@@ -8,7 +8,6 @@ target 'ProjectJammix' do
 pod 'Parse'
 pod 'RKDropdownAlert'
 pod 'EZAudio', '~> 1.1.4'
-pod "DAAlertController"
 pod 'JGActionSheet'
 
 end

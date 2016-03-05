@@ -9,16 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>DAAlertController-DAAlertController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>DAAlertController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>EZAudio.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,12 +42,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>24E1AE0D7B1B1DCEF8BDFE3342594D83</key>
+		<key>20CA10E8991BAA420DD6B3B3247CF6DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>38EA2B758DB50530FE7999076E497AEE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F6492575AF5E5F14B4E914BFD240EF1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,22 +72,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9B6D6D92F025E5941F57B9DAF3BFE4E4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9B916844F33E8D3CF7BC18CE424E9721</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BBD53EC17A08AC711063C72FC0666A99</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D1952DB4DFFB806D8D16717A9EB2A88B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
