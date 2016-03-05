@@ -20,6 +20,7 @@
 @property (strong, nonatomic) UIImage *imageFile;
 //@property (strong, nonatomic) AVPlayer *player;
 @property (strong, nonatomic) AVPlayerViewController *avPlayerViewcontroller;
+@property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
 
 
 @end
@@ -43,6 +44,17 @@
     webViewBG.userInteractionEnabled = NO;
     [self.view addSubview:webViewBG];
     
+//    _moviePlayer =  [[MPMoviePlayerController alloc]
+//                    initWithContentURL:_videoUrl];
+//    
+//    
+//    _moviePlayer.view.frame = _yourImageView.frame;
+//    _moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
+//    
+//    _moviePlayer.controlStyle = MPMovieControlStyleDefault;
+//    _moviePlayer.shouldAutoplay = YES;
+//    [self.view addSubview:_moviePlayer.view];
+
 }
 
 

@@ -30,6 +30,8 @@
 - (void)setNavbar
 {
     [BackendFunctions setupNavbarOnNavbar:self.navigationController onNavigationItem:self.navigationItem];
+    
+    self.view.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
 }
 
 - (void)setButtonColors

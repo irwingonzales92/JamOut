@@ -22,6 +22,7 @@
 		5720EC0B1C83737A00FA2AC8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720EC0A1C83737A00FA2AC8 /* CoreGraphics.framework */; };
 		5720EC111C85A36D00FA2AC8 /* Crush (A Jennifer Paige Cover) - Leon Cruz & Jam Zumel 720p (Video Only).gif in Resources */ = {isa = PBXBuildFile; fileRef = 5720EC101C85A36D00FA2AC8 /* Crush (A Jennifer Paige Cover) - Leon Cruz & Jam Zumel 720p (Video Only).gif */; };
 		5720EC131C85A78A00FA2AC8 /* output_3NM46H.gif in Resources */ = {isa = PBXBuildFile; fileRef = 5720EC121C85A78A00FA2AC8 /* output_3NM46H.gif */; };
+		5720EC151C8A863700FA2AC8 /* VideoMockupFinal.mov in Resources */ = {isa = PBXBuildFile; fileRef = 5720EC141C8A863700FA2AC8 /* VideoMockupFinal.mov */; };
 		5771DEA71C7CD27100D3E5F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771DEA61C7CD27100D3E5F9 /* main.m */; };
 		5771DEAA1C7CD27100D3E5F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771DEA91C7CD27100D3E5F9 /* AppDelegate.m */; };
 		5771DEAD1C7CD27100D3E5F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5771DEAC1C7CD27100D3E5F9 /* RootViewController.m */; };
@@ -84,6 +85,7 @@
 		5720EC0F1C8588FF00FA2AC8 /* OnePunchManGif.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = OnePunchManGif.mp4; sourceTree = "<group>"; };
 		5720EC101C85A36D00FA2AC8 /* Crush (A Jennifer Paige Cover) - Leon Cruz & Jam Zumel 720p (Video Only).gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Crush (A Jennifer Paige Cover) - Leon Cruz & Jam Zumel 720p (Video Only).gif"; sourceTree = "<group>"; };
 		5720EC121C85A78A00FA2AC8 /* output_3NM46H.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = output_3NM46H.gif; sourceTree = "<group>"; };
+		5720EC141C8A863700FA2AC8 /* VideoMockupFinal.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = VideoMockupFinal.mov; sourceTree = "<group>"; };
 		5771DEA21C7CD27100D3E5F9 /* ProjectJammix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectJammix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5771DEA61C7CD27100D3E5F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5771DEA81C7CD27100D3E5F9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				5720EC121C85A78A00FA2AC8 /* output_3NM46H.gif */,
 				5720EC0F1C8588FF00FA2AC8 /* OnePunchManGif.mp4 */,
 				5720EC101C85A36D00FA2AC8 /* Crush (A Jennifer Paige Cover) - Leon Cruz & Jam Zumel 720p (Video Only).gif */,
+				5720EC141C8A863700FA2AC8 /* VideoMockupFinal.mov */,
 				5771DEA61C7CD27100D3E5F9 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -414,6 +417,7 @@
 			files = (
 				5771DEB51C7CD27100D3E5F9 /* LaunchScreen.storyboard in Resources */,
 				5771DEB21C7CD27100D3E5F9 /* Assets.xcassets in Resources */,
+				5720EC151C8A863700FA2AC8 /* VideoMockupFinal.mov in Resources */,
 				5720EC111C85A36D00FA2AC8 /* Crush (A Jennifer Paige Cover) - Leon Cruz & Jam Zumel 720p (Video Only).gif in Resources */,
 				5720EC131C85A78A00FA2AC8 /* output_3NM46H.gif in Resources */,
 				5771DEB01C7CD27100D3E5F9 /* Main.storyboard in Resources */,
