@@ -63,10 +63,7 @@
 
 - (void)setNavbar
 {
-    [self.navigationController.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor],
-                                                                       NSFontAttributeName: [UIFont fontWithName:@"Avenir" size:20.0f]                                                                      }];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor blueColor]];
-    [self.navigationItem setTitle: @"Jammout"];
+    [BackendFunctions setupNavbarOnNavbar:self.navigationController onNavigationItem:self.navigationItem];
 }
 
 - (void)buttonStyling

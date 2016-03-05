@@ -42,6 +42,7 @@
     [self setLabelColors];
     [self setButtonColors];
     [self setDelegates];
+    [self setNavbar];
     
     self.view.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
     _topView.backgroundColor = [kColorConstants darkBlueWithAlpha:1.0];
@@ -80,6 +81,11 @@
     _audioPlayer.delegate = self;
     _audioSession = [AVAudioSession sharedInstance];
     _audioPlayer.numberOfLoops = 2;
+}
+
+- (void)setNavbar
+{
+    [BackendFunctions setupNavbarOnNavbar:self.navigationController onNavigationItem:self.navigationItem];
 }
 
 - (void)setButtonColors

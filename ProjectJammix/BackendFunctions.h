@@ -84,4 +84,7 @@ typedef void (^ObjectReturnBlock)(PFObject *object, NSError *error);
 
 + (void)setupCustomView:(UIView *)view;
 
++ (void)setupNavbarOnNavbar:(UINavigationController *)navigationController
+           onNavigationItem:(UINavigationItem *)navigationItem;
+
 @end

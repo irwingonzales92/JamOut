@@ -69,12 +69,7 @@ to pull when clicked. Similar to the one you had in Project Relay.
 
 - (void)setNavbar
 {
-    [self.navigationController.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor],
-                                                                       NSFontAttributeName: [UIFont fontWithName:@"Avenir" size:20.0f]                                                                      }];
-    [self.navigationController.navigationBar setBackgroundColor:[kColorConstants darkerBlueWithAlpha:1.0]];
-    [self.navigationItem setTitle: @"Jammout"];
-    
-    self.view.backgroundColor = [kColorConstants darkerBlueWithAlpha:1.0];
+    [BackendFunctions setupNavbarOnNavbar:self.navigationController onNavigationItem:self.navigationItem];
 }
 
 

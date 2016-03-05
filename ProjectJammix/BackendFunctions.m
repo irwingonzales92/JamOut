@@ -363,4 +363,12 @@
     view.layer.borderWidth = 1.0f;
 }
 
++ (void)setupNavbarOnNavbar:(UINavigationController *)navigationController onNavigationItem:(UINavigationItem *)navigationItem
+{
+    [navigationController.navigationBar setTitleTextAttributes:@{ NSForegroundColorAttributeName: [UIColor blackColor],
+                                                                       NSFontAttributeName: [UIFont fontWithName:@"Avenir" size:20.0f]                                                                      }];
+    [navigationController.navigationBar setBackgroundColor:[kColorConstants darkerBlueWithAlpha:1.0]];
+    [navigationItem setTitle: @"Jammout"];
+}
+
 @end
