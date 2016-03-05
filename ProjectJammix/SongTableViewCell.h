@@ -16,4 +16,6 @@
 
 + (void)setStyleingWithCell:(SongTableViewCell *)cell;
 
+- (void)cellOnTableView:(UITableView *)tableView didScrollOnView:(UIView *)view;
+
 @end

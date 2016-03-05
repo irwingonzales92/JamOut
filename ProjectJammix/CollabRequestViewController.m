@@ -148,11 +148,11 @@ to pull when clicked. Similar to the one you had in Project Relay.
     
     if (_invite[@"accepted"] == [NSNumber numberWithBool:NO])
     {
-        cell.backgroundColor = [kColorConstants darkBlueWithAlpha:1.0];
+        cell.backgroundColor = [UIColor redColor];
     }
     else
     {
-        cell.backgroundColor = [UIColor redColor];
+        cell.backgroundColor = [kColorConstants darkBlueWithAlpha:1.0];
     }
 //    cell.backgroundColor = [kColorConstants darkBlueWithAlpha:1.0];
     cell.artistLabel.textColor = [UIColor whiteColor];

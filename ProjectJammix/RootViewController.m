@@ -121,6 +121,18 @@
     return cell;
 }
 
+
+// Parallax Effect On TableView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    // Get visible cells on table view.
+    NSArray *visibleCells = [self.tableView visibleCells];
+    
+    for (SongTableViewCell *cell in visibleCells) {
+        [cell cellOnTableView:self.tableView didScrollOnView:self.view];
+    }
+}
+
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;

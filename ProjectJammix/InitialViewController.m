@@ -51,7 +51,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 #pragma 
 #pragma mark - Button Setup
 - (void)setButtonColors
