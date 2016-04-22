@@ -22,6 +22,14 @@ typedef void (^CompletionWithArrayBlock)(NSArray *array, NSError *error);
 typedef void (^ArrayReturnBlock)(NSArray *array, NSError *error);
 typedef void (^ObjectReturnBlock)(PFObject *object, NSError *error);
 
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Basic User Activities
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
 #pragma
 #pragma mark - Basic User Functions
 + (void)signupUserWithName:(NSString *)username
@@ -37,6 +45,14 @@ typedef void (^ObjectReturnBlock)(PFObject *object, NSError *error);
 + (void)logOut;
 
 + (BOOL)userIsLoggedIn;
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Object Queries
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
 
 #pragma
 #pragma mark - Basic Chat Query/Save
@@ -63,14 +79,45 @@ typedef void (^ObjectReturnBlock)(PFObject *object, NSError *error);
 + (void)querySongsFromUser:(PFUser *)user
                  WithArray:(ArrayReturnBlock)returnArray;
 
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Invite Flags
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
 + (BOOL)checkIfUserIsInvited:(PFObject *)passedInvite
                    withError:(NSError *)error
             WithReturnObject:(ObjectReturnBlock)returnObject;
+
++ (BOOL)checkIfUserIsNotInvited:(PFObject *)passedInvite
+                      withError:(NSError *)error
+               WithRetrunObject:(ObjectReturnBlock)returnObject;
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Alert Controllers
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
 
 + (UIAlertController *)showNotification:(NSString *)title
                             withMessage: (NSString *)message
                             andSelector:(SEL)selector
                            onCompletion:(CompletionWithErrorBlock)onCompletion;
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Object Styling
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+#pragma
+#pragma mark - Object Styling
 
 + (void)buttonSetupWithButton:(UIButton *)button;
 
@@ -86,5 +133,6 @@ typedef void (^ObjectReturnBlock)(PFObject *object, NSError *error);
 
 + (void)setupNavbarOnNavbar:(UINavigationController *)navigationController
            onNavigationItem:(UINavigationItem *)navigationItem;
+
 
 @end

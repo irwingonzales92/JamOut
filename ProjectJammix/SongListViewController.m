@@ -20,6 +20,7 @@
 @property (strong, nonatomic) PFUser *user;
 @property (strong, nonatomic) PFObject *localSongs;
 //@property (strong, nonatomic) PFObject *song;
+@property (strong, nonatomic) PFObject *object;
 @property (strong, nonatomic) UIAlertController *alert;
 
 @end

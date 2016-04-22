@@ -30,7 +30,6 @@
 
 @property (strong, nonatomic) NSMutableArray *collectiveInviteArray;
 
-#warning App is getting confused to which segue should be fired off.
 
 /*
 ***This controller is NOT working***
@@ -63,6 +62,7 @@ to pull when clicked. Similar to the one you had in Project Relay.
     [super viewDidLoad];
     [self inviteQuery];
     [self setNavbar];
+    [self checkIfInviteWaAccepted];
     [self useRefreshControl];
     [_tableView reloadData];
 }
@@ -72,6 +72,25 @@ to pull when clicked. Similar to the one you had in Project Relay.
     [BackendFunctions setupNavbarOnNavbar:self.navigationController onNavigationItem:self.navigationItem];
 }
 
+- (void)checkIfInviteWaAccepted
+{
+    NSError *error = [[NSError alloc]init];
+    
+    for (_invite in _inviteArray)
+    {
+        [BackendFunctions checkIfUserIsInvited:_invite withError:error WithReturnObject:^(PFObject *object, NSError *error)
+        {
+            if (!error && YES)
+            {
+                _invite = object;
+            }
+            else
+            {
+                NSLog(@"error %@", error.localizedDescription);
+            }
+        }];
+    }
+}
 
 - (void)inviteQuery
 {
@@ -116,7 +135,7 @@ to pull when clicked. Similar to the one you had in Project Relay.
     PFUser *sendingUser = _invite[@"sender"];
     [invitedUser fetchIfNeeded];
     [sendingUser fetchIfNeeded];
-    PFObject *song = _invite[@"song"];
+//    PFObject *song = _invite[@"song"];
     
     PFFile *songPhoto = [sendingUser objectForKey:@"profileImage"];
     [songPhoto getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error)
@@ -188,6 +207,7 @@ to pull when clicked. Similar to the one you had in Project Relay.
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+
 }
 
 

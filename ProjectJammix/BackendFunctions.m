@@ -14,6 +14,14 @@
 
 @implementation BackendFunctions
 
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Basic User Activities
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
 #pragma
 #pragma mark - Basic User Functions
 + (void)signupUserWithName:(NSString *)username
@@ -62,17 +70,13 @@
     return (currentUser) ? YES : NO;
 }
 
-+ (NSMutableArray *)queryUserWithUser
-{
-    NSMutableArray *array = [[NSMutableArray alloc]init];
-    PFQuery *query = [PFUser query];
-    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
-    {
-        [array arrayByAddingObjectsFromArray:objects];
-    }];
-    
-    return array;
-}
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Object Queries
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
 
 #pragma
 #pragma mark - Basic Chat Query & Save
@@ -101,6 +105,21 @@
         {
             NSLog(@"%@",error);
         }
+    }];
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
++ (void)querySongFromUser1:(NSMutableDictionary *)userDictionary WithArrayBlock:(ArrayReturnBlock)returnArray
+{
+    PFUser *user = [PFUser currentUser];
+    PFObject *song = [PFObject objectWithClassName:@"Song"];
+    [user setObject:user forKey:song];
+    PFQuery *songQuery = [PFQuery queryWithClassName:@"Song"];
+    [songQuery whereKey:@"user" equalTo:user];
+    [songQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error)
+    {
+        returnArray(objects,error);
     }];
 }
 
@@ -263,6 +282,17 @@
     }];
 }
 
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Invite Flags
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+#pragma
+#pragma mark - Invite Flags
+
 + (BOOL)checkIfUserIsInvited:(PFObject *)passedInvite withError:(NSError *)error WithReturnObject:(ObjectReturnBlock)returnObject
 {
     if (passedInvite[@"accepted"] == [NSNumber numberWithBool:YES])
@@ -276,6 +306,31 @@
         return NO;
     }
 }
+
++ (BOOL)checkIfUserIsNotInvited:(PFObject *)passedInvite withError:(NSError *)error WithRetrunObject:(ObjectReturnBlock)returnObject
+{
+    if (passedInvite[@"accepted"] == [NSNumber numberWithBool:NO])
+    {
+        returnObject(passedInvite, error);
+        return YES;
+    }
+    else
+    {
+        NSLog(@"Does Not Match");
+        return NO;
+    }
+}
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Alert Controllers
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+#pragma
+#pragma mark - Alert Controllers
 
 + (UIAlertController *)showNotification:(NSString *)title
                             withMessage: (NSString *)message
@@ -303,6 +358,17 @@
     [alert addAction:cancel];
     return alert;
 }
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////
+////////           Object Styling
+////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+#pragma 
+#pragma mark - Object Styling
 
 + (void)buttonSetupWithButton:(UIButton *)button
 {
@@ -370,5 +436,6 @@
     [navigationController.navigationBar setBackgroundColor:[kColorConstants darkerBlueWithAlpha:1.0]];
     [navigationItem setTitle: @"Jammout"];
 }
+
 
 @end

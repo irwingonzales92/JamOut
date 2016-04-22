@@ -37,7 +37,6 @@
 //    }
 //    
 //    [self.window makeKeyAndVisible];
-
     
     [Parse enableLocalDatastore];
     
